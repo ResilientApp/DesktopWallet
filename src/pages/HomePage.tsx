@@ -8,6 +8,7 @@ const HomePage: React.FC = () => {
             <Stack gap={3} justifyContent="center">
                 <Typography variant="h5">
                     Resilleint DB Desktop Wallet
+                    
                 </Typography>
                 <Button
                     variant="outlined"
