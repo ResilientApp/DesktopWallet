@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
                 <Button
                     variant="outlined"
                     onClick={() => {
-                        api.test.print("hi");
+                        api.demo.print("hi");
                     }}
                 >
                     Print("hi")

@@ -1,5 +1,5 @@
 import { ipcRenderer } from "electron";
-import * as test from "./test";
+import * as demo from "./demo";
 export default {
-    test,
+    demo,
 };

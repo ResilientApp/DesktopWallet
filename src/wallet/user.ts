@@ -2,8 +2,9 @@ import nacl from "tweetnacl";
 import base58 from "bs58";
 import crypto from "crypto";
 import keytar from "keytar";
+import {cipherIV, appName} from './configs';
 
-class User {
+export default class User {
     publicKey: string;
     privateKey: string;
     encryptedPrivateKey: string;
@@ -39,7 +40,9 @@ class User {
             JSON.parse(result);
         this.passwordHash = passwordHash;
         this.publicKey = publicKey;
-        this.encryptPrivateKey = encryptedPrivateKey;
+        this.encryptedPrivateKey = encryptedPrivateKey;
+
+        console.log(result);
 
         const inputedPasswordHash = User.hashPassword(password);
         if (inputedPasswordHash !== this.passwordHash) {
@@ -75,26 +78,35 @@ class User {
             JSON.stringify({
                 passwordHash: this.passwordHash,
                 publicKey: this.publicKey,
-                encryptedPrivateKey: this.encryptPrivateKey,
+                encryptedPrivateKey: this.encryptedPrivateKey,
             })
         );
     };
 
     encryptPrivateKey = (password: string) => {
-        const cipher = crypto.createCipheriv("aes-256-gcm", password, cipherIV);
+
+        const keybytes = Buffer.from(password, 'ascii');
+        const paddedKeyBytes = Buffer.concat([keybytes], 32);
+
+
+        const cipher = crypto.createCipheriv("aes-256-cbc", paddedKeyBytes, cipherIV);
         this.encryptedPrivateKey =
-            cipher.update(this.privateKey, "utf-8", "hex") +
+            cipher.update(this.privateKey, "utf8", "hex") +
             cipher.final("hex");
     };
 
     decryptPrivateKey = (password: string) => {
+
+        const keybytes = Buffer.from(password, 'ascii');
+        const paddedKeyBytes = Buffer.concat([keybytes], 32);
+
         const decipher = crypto.createDecipheriv(
-            "aes-256-gcm",
-            password,
+            "aes-256-cbc",
+            paddedKeyBytes,
             cipherIV
         );
         this.privateKey =
-            decipher.update(this.encryptedPrivateKey, "hex", "utf-8") +
-            decipher.final("utf-8");
+            decipher.update(this.encryptedPrivateKey, "hex", "utf8") +
+            decipher.final("utf8");
     };
 }
