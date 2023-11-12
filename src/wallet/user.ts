@@ -2,7 +2,7 @@ import nacl from "tweetnacl";
 import base58 from "bs58";
 import crypto from "crypto";
 import keytar from "keytar";
-import {cipherIV, appName} from './configs';
+import {cipherIV, appName} from '../configs';
 
 export default class User {
     publicKey: string;
@@ -31,6 +31,7 @@ export default class User {
         return crypto.createHash("sha512").update(password).digest("hex"); // hashes the password
     };
 
+    // Checks if all information matches to retrieve an account that has been created before
     retrieveExistingWallet = async (password: string) => {
         const result = await keytar.getPassword(appName, this.username);
         if (!result) {
@@ -64,13 +65,14 @@ export default class User {
         this.publicKey = publicKey; // user public key
         this.privateKey = privateKey; // user private key
 
-        this.passwordHash = User.hashPassword(password);
+        this.passwordHash = User.hashPassword(password); // hashes password
 
-        this.encryptPrivateKey(password);
+        this.encryptPrivateKey(password); // then encrypts the password
 
         await this.writeUserAccountToFile();
     };
 
+    // saves the password into the keychain
     writeUserAccountToFile = async () => {
         await keytar.setPassword(
             appName,
@@ -83,6 +85,7 @@ export default class User {
         );
     };
 
+    // encrypts the key by ciphering it
     encryptPrivateKey = (password: string) => {
 
         const keybytes = Buffer.from(password, 'ascii');
@@ -95,6 +98,7 @@ export default class User {
             cipher.final("hex");
     };
 
+    // decrypts the key by deciphering
     decryptPrivateKey = (password: string) => {
 
         const keybytes = Buffer.from(password, 'ascii');
