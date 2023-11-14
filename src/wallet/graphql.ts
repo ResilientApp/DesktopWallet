@@ -1,5 +1,5 @@
 import { request, gql, GraphQLClient } from "graphql-request";
-import { graphQLURL } from "../configs";
+import { appName, appVersion, graphQLURL } from "../configs";
 import User from "./user";
 import { GetTransationResult, PostTransactionResult } from "./structures";
 
@@ -26,8 +26,8 @@ export default class WalletGraphQLClient {
         data = {
             ...data,
             client: {
-                name: "resillientdb-desktop-wallet",
-                version: "1.0.0-dev",
+                name: appName,
+                version: appVersion,
             },
         };
         const doc = gql`
