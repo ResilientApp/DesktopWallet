@@ -1,7 +1,7 @@
 import { request, gql, GraphQLClient } from "graphql-request";
 import { graphQLURL } from "../configs";
 import User from "./user";
-import { GetTransationResult } from "./structures";
+import { GetTransationResult, PostTransactionResult } from "./structures";
 
 export default class WalletGraphQLClient {
     client: GraphQLClient;
@@ -12,10 +12,10 @@ export default class WalletGraphQLClient {
         this.user = user;
     }
 
-    setTransation = async (
+    postTransation = async (
         amount: number,
         recipientPublicKey: string,
-        data?: Object
+        data?: object
     ): Promise<string> => {
         if (!data) {
             data = {
@@ -23,6 +23,13 @@ export default class WalletGraphQLClient {
             };
         }
 
+        data = {
+            ...data,
+            client: {
+                name: "resillientdb-desktop-wallet",
+                version: "1.0.0-dev",
+            },
+        };
         const doc = gql`
             mutation { postTransaction(data: {
                 operation: "CREATE"
@@ -41,8 +48,9 @@ export default class WalletGraphQLClient {
         `;
 
         // console.log(reqObj);
-        const resp = await this.client.request(doc);
-        return (resp as any).postTransaction.id;
+        const resp: { postTransaction: PostTransactionResult } =
+            await this.client.request(doc);
+        return resp.postTransaction.id;
     };
 
     getTransaction = async (id: string): Promise<GetTransationResult> => {
@@ -64,7 +72,6 @@ export default class WalletGraphQLClient {
             await this.client.request(doc);
         return resp.getTransaction;
     };
-
 
     // getFilteredTransactions = async (ownerPublicKey?: string, recipientPublicKey?: string): Promise<GetTransationResult> => {
     //     const doc = gql`
