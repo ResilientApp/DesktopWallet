@@ -11,12 +11,17 @@ import {
     Link,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import SignIn from "./pages/SignIn";
 
 const router = createHashRouter([
     {
         path: "/",
         element: <HomePage />,
     },
+    {
+        path: "/signin",
+        element: <SignIn/>
+    }
 ]);
 
 const root = createRoot(document.body);

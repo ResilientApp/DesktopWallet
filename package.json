@@ -49,13 +49,15 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
+    "antd": "^5.11.1",
     "axios": "^1.5.1",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
     "react-syntax-highlighter": "^15.5.0",
-    "react-use": "^17.4.0"
+    "react-use": "^17.4.0",
+    "styled-components": "^6.1.1"
   },
   "packageManager": "yarn@1.22.19"
 }

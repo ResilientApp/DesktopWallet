@@ -1,6 +1,8 @@
 import type { ModuleOptions } from 'webpack';
+const path = require("path");
 
 export const rules: Required<ModuleOptions>['rules'] = [
+  
   // Add support for native node modules
   {
     // We're specifying native_modules in the test because the asset relocator loader generates a
@@ -28,4 +30,12 @@ export const rules: Required<ModuleOptions>['rules'] = [
       },
     },
   },
+   // loads common image formats
+   {
+    test: /\.(svg|png|jpg|gif)$/,
+    include: [
+      path.resolve(__dirname, "public/images")
+    ],
+    type: "asset/inline"
+  }
 ];
