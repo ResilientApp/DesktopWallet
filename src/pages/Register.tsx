@@ -84,7 +84,7 @@ const Register = () => {
 
                                     <Form.Item>
                                         <Button
-                                            className="btn-register"
+                                            className="btn-signin"
                                             htmlType="submit"
                                             type="primary"
                                             size="large"
