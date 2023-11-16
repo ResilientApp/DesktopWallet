@@ -6,7 +6,7 @@ import { AuthFormWrap } from "../components/style";
 import earthImage from "../images/earth.png";
 import { getErrorMessageContent } from "../utils";
 
-const SignIn = () => {
+const Register = () => {
     const [form] = Form.useForm();
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -17,7 +17,7 @@ const SignIn = () => {
         password: string
     ) => {
         try {
-            await api.auth.initWallet(username, password, "login");
+            await api.auth.initWallet(username, password, "registration");
             navigate("/dashboard");
         } catch (e) {
             const emessage = e instanceof Error ? e.message : e;
@@ -55,7 +55,7 @@ const SignIn = () => {
                         <AuthFormWrap>
                             <div className="ninjadash-authentication-top">
                                 <h2 className="ninjadash-authentication-top__title">
-                                    Sign in to ResDB
+                                    Register New Wallet
                                 </h2>
                             </div>
                             <div className="ninjadash-authentication-content">
@@ -84,12 +84,12 @@ const SignIn = () => {
 
                                     <Form.Item>
                                         <Button
-                                            className="btn-signin"
+                                            className="btn-register"
                                             htmlType="submit"
                                             type="primary"
                                             size="large"
                                         >
-                                            Sign in
+                                            Register
                                         </Button>
                                         <br /> <br />
                                         {errorMessage && (
@@ -103,9 +103,8 @@ const SignIn = () => {
                             </div>
                             <div className="ninjadash-authentication-bottom">
                                 <p>
-                                    Don&apos;t have a wallet? No problem, click
-                                    here to create one!
-                                    <Link to="/register">Register</Link>
+                                    Already have a wallet?
+                                    <Link to="/signin">Signin</Link>
                                 </p>
                             </div>
                         </AuthFormWrap>
@@ -116,4 +115,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default Register;

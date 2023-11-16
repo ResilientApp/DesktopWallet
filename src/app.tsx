@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
+import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
 
 const router = createHashRouter([
     {
@@ -20,8 +22,16 @@ const router = createHashRouter([
     },
     {
         path: "/signin",
-        element: <SignIn/>
-    }
+        element: <SignIn />,
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard />,
+    },
+    {
+        path: "/register",
+        element: <Register />,
+    },
 ]);
 
 const root = createRoot(document.body);

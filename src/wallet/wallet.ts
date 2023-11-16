@@ -6,10 +6,16 @@ export class Wallet {
     user: User;
     graphqlClient: WalletGraphQLClient;
 
-    constructor(user: User) {
+    init = async (
+        username: string,
+        password: string,
+        mode: "login" | "registration"
+    ) => {
+        const user = new User();
+        await user.init(username, password, mode);
         this.user = user;
         this.graphqlClient = new WalletGraphQLClient(user);
-    }
+    };
 
     // returns transaction id
     sendToken = async (

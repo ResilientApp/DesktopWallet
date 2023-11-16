@@ -9,7 +9,6 @@ const HomePage: React.FC = () => {
             <Stack gap={3} justifyContent="center">
                 <Typography variant="h5">
                     Resilleint DB Desktop Wallet
-                    
                 </Typography>
                 <Button
                     variant="outlined"
@@ -19,7 +18,8 @@ const HomePage: React.FC = () => {
                 >
                     Print("hi")
                 </Button>
-                <Button onClick = {() => navigate("/signin")}>sign in</Button>
+                <Button onClick={() => navigate("/signin")}>sign in</Button>
+                <Button onClick={() => navigate("/register")}>register</Button>
             </Stack>
         </Container>
     );

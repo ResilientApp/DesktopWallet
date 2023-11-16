@@ -2,7 +2,7 @@ import nacl from "tweetnacl";
 import base58 from "bs58";
 import crypto from "crypto";
 import keytar from "keytar";
-import {cipherIV, appName} from '../configs';
+import { cipherIV, appName } from "../configs";
 
 export default class User {
     publicKey: string;
@@ -16,6 +16,10 @@ export default class User {
         password: string,
         mode: "login" | "registration"
     ) {
+        if (!username) {
+            throw new Error("Username must not be empty");
+        }
+
         this.username = username;
 
         if (mode === "login") {
@@ -34,6 +38,7 @@ export default class User {
     // Checks if all information matches to retrieve an account that has been created before
     retrieveExistingWallet = async (password: string) => {
         const result = await keytar.getPassword(appName, this.username);
+        console.log(result);
         if (!result) {
             throw new Error("Unable to Retrieve User");
         }
@@ -87,21 +92,26 @@ export default class User {
 
     // encrypts the key by ciphering it
     encryptPrivateKey = (password: string) => {
+        const keybytes = Buffer.from(password, "ascii");
 
-        const keybytes = Buffer.from(password, 'ascii');
+        if (keybytes.length > 32 || keybytes.length < 1) {
+            throw new Error("Password must be between 1 and 32 bytes long");
+        }
+
         const paddedKeyBytes = Buffer.concat([keybytes], 32);
 
-
-        const cipher = crypto.createCipheriv("aes-256-cbc", paddedKeyBytes, cipherIV);
+        const cipher = crypto.createCipheriv(
+            "aes-256-cbc",
+            paddedKeyBytes,
+            cipherIV
+        );
         this.encryptedPrivateKey =
-            cipher.update(this.privateKey, "utf8", "hex") +
-            cipher.final("hex");
+            cipher.update(this.privateKey, "utf8", "hex") + cipher.final("hex");
     };
 
     // decrypts the key by deciphering
     decryptPrivateKey = (password: string) => {
-
-        const keybytes = Buffer.from(password, 'ascii');
+        const keybytes = Buffer.from(password, "ascii");
         const paddedKeyBytes = Buffer.concat([keybytes], 32);
 
         const decipher = crypto.createDecipheriv(

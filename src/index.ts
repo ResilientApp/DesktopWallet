@@ -7,21 +7,20 @@ import { app, BrowserWindow, ipcMain } from "electron";
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
-
 const main = async () => {
-
     // Handle creating/removing shortcuts on Windows when installing/uninstalling.
     if (require("electron-squirrel-startup")) {
         app.quit();
     }
 
-
-    if (process.env.NODE_ENV === 'development' && process.argv.includes('--test')) {
+    if (
+        process.env.NODE_ENV === "development" &&
+        process.argv.includes("--test")
+    ) {
         await runAllTests();
         app.quit();
         return;
     }
-
 
     const wallet = new Wallet(null);
 
@@ -42,10 +41,15 @@ const main = async () => {
         mainWindow.webContents.openDevTools();
     };
 
-    const handleAPIFunc = (name: string, func: Function, debug = false) => {
+    const handleAPIFunc = (
+        name: string,
+        func: (...a: unknown[]) => unknown,
+        debug = false
+    ) => {
         ipcMain.handle(name, (e, ...args) => {
             console.log(`invoking ${name}(${args})`);
             if (debug) return;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
             const res = func(...args);
             return res;
@@ -57,6 +61,7 @@ const main = async () => {
     // Some APIs can only be used after this event occurs.
     app.on("ready", () => {
         handleAPIFunc("demo:print", wallet.print);
+        handleAPIFunc("auth:initWallet", wallet.init);
         createWindow();
     });
 
@@ -76,9 +81,7 @@ const main = async () => {
             createWindow();
         }
     });
-
-}
-
+};
 
 main().then();
 
