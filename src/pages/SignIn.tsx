@@ -28,7 +28,7 @@ const SignIn = () => {
     const handleSubmit = async () => {
         const username = form.getFieldsValue().username;
         const password = form.getFieldsValue().password;
-        await checkUserNameAndPassword(username, password);
+        await checkUserNameAndPassword(username || "", password || "");
         console.log("hi", form.getFieldsValue().username);
     };
 
