@@ -11,11 +11,26 @@ import {
     Link,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import SignIn from "./pages/SignIn";
+import Dashboard from "./pages/Dashboard";
+import Register from "./pages/Register";
 
 const router = createHashRouter([
     {
         path: "/",
         element: <HomePage />,
+    },
+    {
+        path: "/signin",
+        element: <SignIn />,
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard />,
+    },
+    {
+        path: "/register",
+        element: <Register />,
     },
 ]);
 

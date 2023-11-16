@@ -1,5 +1,7 @@
 import { ipcRenderer } from "electron";
-import * as test from "./test";
+import * as demo from "./demo";
+import * as auth from "./auth";
 export default {
-    test,
+    demo,
+    auth,
 };
