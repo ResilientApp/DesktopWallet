@@ -4,7 +4,10 @@ import { Form, Input, Button, Row, Col } from "antd";
 import { AuthFormWrap } from "../components/style";
 import { Checkbox } from "../components/checkbox/checkbox";
 
+import earthImage from "../images/earth.png";
+
 const SignIn = () => {
+    console.log(earthImage);
     const [form] = Form.useForm();
     const [loginWrong, setLoginWrong] = useState(false);
     const [userNotFound, setUserNotFound] = useState(false);
@@ -12,20 +15,14 @@ const SignIn = () => {
     // this is the imaginary backend function where you pass in the Json username and password, and get back a JSON response of either a public key for a successful login/registration
     // or an error message for unsuccessful login
     // right now this is done through simple if statements to simulate errors but obviosuly we will change this so it comes from the backend
-    const checkUserNameAndPassword = (username: String, password: String) => {
-        if (
-            username === "ninjadash@dm.com" &&
-            password === "123456"
-        ) {
+    const checkUserNameAndPassword = (username: string, password: string) => {
+        if (username === "ninjadash@dm.com" && password === "123456") {
             setLoginWrong(false);
             setUserNotFound(false);
             // get a response of a public key here
             return { publicKey: "123", privateKey: "456" };
         }
-        if (
-            username === "ninjadash@dm.com" &&
-            password !== "123456"
-        ) {
+        if (username === "ninjadash@dm.com" && password !== "123456") {
             setLoginWrong(true);
             setUserNotFound(false);
             return { err: "wrongUserName" };
@@ -46,6 +43,7 @@ const SignIn = () => {
     const containerStyle = {
         height: "100vh",
         // backgroundImage: `url("${require('../images/earth.png')}")`,
+        backgroundImage: `url(${earthImage})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
         backgroundSize: "cover",
@@ -56,12 +54,12 @@ const SignIn = () => {
             <div style={{ paddingTop: "15vh" }}>
                 <Row justify="center">
                     <Col xxl={6} xl={8} md={12} sm={18} xs={24}>
-                        <img src="earth.png" alt="My Image" />
+                        {/* <img src="earth.png" alt="My Image" /> */}
 
                         <AuthFormWrap>
                             <div className="ninjadash-authentication-top">
                                 <h2 className="ninjadash-authentication-top__title">
-                                    Sign in to the ResDB App
+                                    Sign in ResDB
                                 </h2>
                             </div>
                             <div className="ninjadash-authentication-content">
@@ -110,8 +108,18 @@ const SignIn = () => {
                                             Sign in
                                         </Button>
                                         <br /> <br />
-                                        {loginWrong && <p style={{ color: 'red' }}>Wrong username or password. Please try again.</p>}
-                                        {userNotFound && <p style={{ color: 'red' }}>User not found. Please try again.</p>}
+                                        {loginWrong && (
+                                            <p style={{ color: "red" }}>
+                                                Wrong username or password.
+                                                Please try again.
+                                            </p>
+                                        )}
+                                        {userNotFound && (
+                                            <p style={{ color: "red" }}>
+                                                User not found. Please try
+                                                again.
+                                            </p>
+                                        )}
                                     </Form.Item>
                                 </Form>
                             </div>

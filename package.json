@@ -52,12 +52,14 @@
     "antd": "^5.11.1",
     "axios": "^1.5.1",
     "electron-squirrel-startup": "^1.0.0",
+    "file-loader": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-use": "^17.4.0",
-    "styled-components": "^6.1.1"
+    "styled-components": "^6.1.1",
+    "url-loader": "^4.1.1"
   },
   "packageManager": "yarn@1.22.19"
 }
