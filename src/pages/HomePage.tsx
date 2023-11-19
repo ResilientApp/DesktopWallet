@@ -20,6 +20,7 @@ const HomePage: React.FC = () => {
                 </Button>
                 <Button onClick={() => navigate("/signin")}>sign in</Button>
                 <Button onClick={() => navigate("/register")}>register</Button>
+                <Button onClick={() => navigate("/dapp-directory")}>dapp dir</Button>
             </Stack>
         </Container>
     );

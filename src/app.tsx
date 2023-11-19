@@ -14,6 +14,7 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
+import DAppDirectory from "./pages/DAppDirectory";
 
 const router = createHashRouter([
     {
@@ -32,6 +33,10 @@ const router = createHashRouter([
         path: "/register",
         element: <Register />,
     },
+    {
+        path: '/dapp-directory',
+        element: <DAppDirectory />
+    }
 ]);
 
 const root = createRoot(document.body);

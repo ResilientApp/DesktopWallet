@@ -1,3 +1,5 @@
+import {sdkMessageDirectionsPageScript} from '../utils'
+
 export interface GetTransationResult {
     id: string;
     version: string;
@@ -29,3 +31,13 @@ export interface FilteredTransaction {
     uri: string;
     type: string;
 }
+
+
+export type SDKMessage = {
+    direction: typeof sdkMessageDirectionsPageScript;
+    message?: string;
+    amount?: string;
+    address?: string;
+    ownerPublicKey?: string;
+    recipientPublicKey?: string;
+};

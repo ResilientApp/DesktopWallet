@@ -33,6 +33,12 @@ const config: ForgeConfig = {
                             js: "./src/preload.ts",
                         },
                     },
+                    {
+                        name: 'dapp',
+                        preload: {
+                            js: './src/dapp-preload.ts'
+                        }
+                    }
                 ],
             },
         }),
