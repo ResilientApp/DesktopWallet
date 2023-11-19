@@ -20,4 +20,10 @@ export const graphQlTest = async () => {
     assertEq(getTransationResult.id, id);
     assertEq(getTransationResult.amount, 10);
     assertEq(getTransationResult.publicKey, testReceiver);
+
+
+    // const getFilteredTransactionsResult = await graphqlClient.getFilteredTransactions(u.publicKey, testReceiver);
+    // console.log(getFilteredTransactionsResult);    
+
+    
 };

@@ -1,7 +1,7 @@
 import { request, gql, GraphQLClient } from "graphql-request";
 import { appName, appVersion, graphQLURL } from "../configs";
 import User from "./user";
-import { GetTransationResult, PostTransactionResult } from "./structures";
+import { GetTransationResult, PostTransactionResult, GetFilteredTransactionsResult, FilteredTransaction } from "./structures";
 
 export default class WalletGraphQLClient {
     client: GraphQLClient;
@@ -73,23 +73,34 @@ export default class WalletGraphQLClient {
         return resp.getTransaction;
     };
 
-    // getFilteredTransactions = async (ownerPublicKey?: string, recipientPublicKey?: string): Promise<GetTransationResult> => {
-    //     const doc = gql`
-    //         query {getFilteredTransactions(id: "${id}") {
-    //             id
-    //             version
-    //             amount
-    //             metadata
-    //             operation
-    //             asset
-    //             publicKey
-    //             uri
-    //             type
-    //         }}
-    //     `;
 
-    //     const resp: { getTransaction: GetTransationResult } =
-    //         await this.client.request(doc);
-    //     return resp.getTransaction;
-    // };
+
+
+
+    getFilteredTransactions = async (ownerPublicKey?: string, recipientPublicKey?: string): Promise<FilteredTransaction[]> => {
+
+
+        const doc = gql`
+            query {getFilteredTransactions(filter: {
+                ownerPublicKey: "${ownerPublicKey || ""}",
+                recipientPublicKey: "${recipientPublicKey || ""}"
+            }) {
+                id
+                version
+                amount
+                metadata
+                operation
+                asset
+                publicKey
+                uri
+                type
+            }}
+        `;
+
+        console.log(doc);
+
+        const resp: { data: GetFilteredTransactionsResult } =
+            await this.client.request(doc);
+        return resp.data.getFilteredTransactions;
+    };
 }

@@ -22,7 +22,7 @@ const main = async () => {
         return;
     }
 
-    const wallet = new Wallet(null);
+    const wallet = new Wallet();
 
     const createWindow = (): void => {
         // Create the browser window.
@@ -61,7 +61,20 @@ const main = async () => {
     // Some APIs can only be used after this event occurs.
     app.on("ready", () => {
         handleAPIFunc("demo:print", wallet.print);
+
         handleAPIFunc("auth:initWallet", wallet.init);
+        handleAPIFunc("auth:getPublicPrivateKeys", wallet.getPublicPrivateKeys);
+        handleAPIFunc("transactions:getWalletContent", wallet.getWalletContent);
+
+        handleAPIFunc(
+            "transactions:getPastTransactions",
+            wallet.getPastTransactions
+        );
+        handleAPIFunc(
+            "transactions:postTransation",
+            wallet.getPastTransactions
+        );
+
         createWindow();
     });
 

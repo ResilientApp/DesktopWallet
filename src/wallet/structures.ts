@@ -13,3 +13,19 @@ export interface GetTransationResult {
 export interface PostTransactionResult {
     id: string;
 }
+
+export interface GetFilteredTransactionsResult {
+    getFilteredTransactions: FilteredTransaction[];
+}
+
+export interface FilteredTransaction {
+    id: string;
+    version: string;
+    amount: number;
+    metadata: any;
+    operation: string;
+    asset: string;
+    publicKey: string;
+    uri: string;
+    type: string;
+}

@@ -34,7 +34,47 @@ export class Wallet {
         return await this.graphqlClient.getTransaction(transactionID);
     };
 
-    // getTransation = async ()
+    getWalletContent = async () => {
+        const { transactionsSent, transactionsReceived } =
+            await this.getPastTransactions();
+        return (
+            transactionsReceived.reduce(
+                (a, b) => ({ amount: a.amount + b.amount }),
+                { amount: 0 }
+            ).amount -
+            transactionsSent.reduce(
+                (a, b) => ({ amount: a.amount + b.amount }),
+                { amount: 0 }
+            ).amount
+        );
+    };
+
+    getPastTransactions = async () => {
+        const transactionsSent =
+            await this.graphqlClient.getFilteredTransactions(
+                this.user.publicKey
+            );
+        const transactionsReceived =
+            await this.graphqlClient.getFilteredTransactions(
+                null,
+                this.user.publicKey
+            );
+        return {
+            transactionsSent,
+            transactionsReceived,
+        };
+    };
+
+    postTransation = async (amount: number, recipientPublicKey: string, data: object) => {
+        return await this.graphqlClient.postTransation(amount, recipientPublicKey, data);
+    }
+
+    getPublicPrivateKeys = async () => {
+        return {
+            publicKey: this.user.publicKey,
+            privateKey: this.user.privateKey,
+        }
+    }
 
     print = async (...args: any) => {
         console.log(...args);

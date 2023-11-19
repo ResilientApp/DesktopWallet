@@ -8,3 +8,6 @@ export const initWallet = async (
     password: string,
     mode: "login" | "registration"
 ) => await ipcRenderer.invoke("auth:initWallet", username, password, mode);
+
+
+export const getPublicPrivateKeys = async () => await ipcRenderer.invoke("auth:getPublicPrivateKeys");
