@@ -246,7 +246,6 @@ function BlankPage() {
                                     >
                                         Send a transaction
                                     </h1>
-                                    <br></br>
                                     <Card
                                         shadow="sm"
                                         padding="xl"
@@ -374,7 +373,6 @@ function BlankPage() {
                                     >
                                         View Wallet
                                     </h1>
-                                    <br></br>
                                     <Card
                                         shadow="sm"
                                         padding="xl"
