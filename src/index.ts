@@ -22,7 +22,7 @@ const main = async () => {
         return;
     }
 
-    const wallet = new Wallet(null);
+    const wallet = new Wallet();
 
     const createWindow = (): void => {
         // Create the browser window.
