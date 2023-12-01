@@ -19,24 +19,13 @@ import {
     Burger,
     Anchor,
 } from "@mantine/core";
-import "./dashboard.css";
 import "@mantine/core/styles.css";
 
 function BlankPage() {
-    const PageRoutes = [
-        {
-            path: "hi",
-            breadcrumbName: "Dashboard",
-        },
-        {
-            path: "hi",
-            breadcrumbName: "View Wallet",
-        },
-    ];
     const containerStyle = {
         height: "100vh",
         backgroundImage: `url(${background})`,
-        backgroundRepeat: "no-repeat",
+        backgroundRepeat: "repeat",
         backgroundPosition: "center center",
         backgroundSize: "cover",
     };
