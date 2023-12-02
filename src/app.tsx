@@ -2,7 +2,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-
+import { MantineProvider } from '@mantine/core';
 import { createRoot } from "react-dom/client";
 import {
     createHashRouter,
@@ -33,11 +33,19 @@ const router = createHashRouter([
         path: "/register",
         element: <Register />,
     },
+<<<<<<< HEAD
     {
         path: '/dapp-directory',
         element: <DAppDirectory />
     }
+=======
+    // { path: "/send-coins", element: <SendCoins /> },
+>>>>>>> dashboard
 ]);
 
 const root = createRoot(document.body);
-root.render(<RouterProvider router={router} />);
+root.render(
+    <MantineProvider>
+        <RouterProvider router={router} />{" "}
+    </MantineProvider>
+);
