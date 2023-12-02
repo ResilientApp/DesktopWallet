@@ -14,7 +14,6 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
-import SendCoins from "./pages/SendCoins";
 
 const router = createHashRouter([
     {
