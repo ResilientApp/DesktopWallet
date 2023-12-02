@@ -20,6 +20,11 @@ export interface GetFilteredTransactionsResult {
     getFilteredTransactions: FilteredTransaction[];
 }
 
+export interface WalletGetTransactionsResult {
+    transactionsReceived: FilteredTransaction[],
+    transactionsSent: FilteredTransaction[],
+}
+
 export interface FilteredTransaction {
     id: string;
     version: string;
@@ -30,6 +35,12 @@ export interface FilteredTransaction {
     publicKey: string;
     uri: string;
     type: string;
+}
+
+export interface FilteredTransactionWithToFrom extends FilteredTransaction {
+    to: string;
+    from: string;
+    time?: number;
 }
 
 

@@ -1,7 +1,12 @@
 import { request, gql, GraphQLClient } from "graphql-request";
 import { appName, appVersion, graphQLURL } from "../configs";
 import User from "./user";
-import { GetTransationResult, PostTransactionResult, GetFilteredTransactionsResult, FilteredTransaction } from "./structures";
+import {
+    GetTransationResult,
+    PostTransactionResult,
+    GetFilteredTransactionsResult,
+    FilteredTransaction,
+} from "./structures";
 
 export default class WalletGraphQLClient {
     client: GraphQLClient;
@@ -15,13 +20,17 @@ export default class WalletGraphQLClient {
     postTransation = async (
         amount: number,
         recipientPublicKey: string,
-        data?: object
+        data?: object,
+        metadata?: string
     ): Promise<string> => {
-        if (!data) {
-            data = {
-                time: Date.now(),
-            };
-        }
+
+        data = data || {};
+
+        data = {
+            ...data,
+            time: Date.now(),
+        };
+
 
         data = {
             ...data,
@@ -47,7 +56,6 @@ export default class WalletGraphQLClient {
             }
         `;
 
-        // console.log(reqObj);
         const resp: { postTransaction: PostTransactionResult } =
             await this.client.request(doc);
         return resp.postTransaction.id;
@@ -73,13 +81,10 @@ export default class WalletGraphQLClient {
         return resp.getTransaction;
     };
 
-
-
-
-
-    getFilteredTransactions = async (ownerPublicKey?: string, recipientPublicKey?: string): Promise<FilteredTransaction[]> => {
-
-
+    getFilteredTransactions = async (
+        ownerPublicKey?: string,
+        recipientPublicKey?: string
+    ): Promise<FilteredTransaction[]> => {
         const doc = gql`
             query {getFilteredTransactions(filter: {
                 ownerPublicKey: "${ownerPublicKey || ""}",
@@ -97,10 +102,10 @@ export default class WalletGraphQLClient {
             }}
         `;
 
-        console.log(doc);
+        const resp: GetFilteredTransactionsResult = await this.client.request(
+            doc
+        );
 
-        const resp: { data: GetFilteredTransactionsResult } =
-            await this.client.request(doc);
-        return resp.data.getFilteredTransactions;
+        return resp.getFilteredTransactions;
     };
 }

@@ -21,3 +21,16 @@ export const sdkMessageDirectionsParse = (fullstring: string) => {
     if (!loc) return fullstring;
     return fullstring.substring(0, loc);
 }
+
+export const getTimeFromAsset = (asset: string) => {
+    if (!asset) return null;
+    console.log(asset.replaceAll(`'`, '"'));
+    try {
+        const data = JSON.parse(asset.replaceAll(`'`, '"'));
+        console.log(data);
+        return data?.data?.time; 
+    } catch(e) {
+        console.log(e);
+        return null;
+    }
+}

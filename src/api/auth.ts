@@ -10,4 +10,4 @@ export const initWallet = async (
 ) => await ipcRenderer.invoke("auth:initWallet", username, password, mode);
 
 
-export const getPublicPrivateKeys = async () => await ipcRenderer.invoke("auth:getPublicPrivateKeys");
+export const getPublicPrivateKeys = async (): Promise<{publicKey: string, privateKey: string}> => await ipcRenderer.invoke("auth:getPublicPrivateKeys");

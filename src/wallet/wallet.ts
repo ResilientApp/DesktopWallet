@@ -1,5 +1,6 @@
+import { sleep } from "../utils";
 import WalletGraphQLClient from "./graphql";
-import { GetTransationResult } from "./structures";
+import { GetTransationResult, WalletGetTransactionsResult } from "./structures";
 import User from "./user";
 
 export class Wallet {
@@ -15,6 +16,7 @@ export class Wallet {
         await user.init(username, password, mode);
         this.user = user;
         this.graphqlClient = new WalletGraphQLClient(user);
+
     };
 
     // returns transaction id
@@ -35,8 +37,12 @@ export class Wallet {
     };
 
     getWalletContent = async () => {
+
+        await sleep(2000);
+ 
         const { transactionsSent, transactionsReceived } =
             await this.getPastTransactions();
+
         return (
             transactionsReceived.reduce(
                 (a, b) => ({ amount: a.amount + b.amount }),
@@ -47,9 +53,10 @@ export class Wallet {
                 { amount: 0 }
             ).amount
         );
+        return 1;
     };
 
-    getPastTransactions = async () => {
+    getPastTransactions = async (): Promise<WalletGetTransactionsResult> => {
         const transactionsSent =
             await this.graphqlClient.getFilteredTransactions(
                 this.user.publicKey
@@ -65,7 +72,7 @@ export class Wallet {
         };
     };
 
-    postTransation = async (amount: number, recipientPublicKey: string, data: object) => {
+    postTransation = async (amount: number, recipientPublicKey: string, data?: object) => {
         return await this.graphqlClient.postTransation(amount, recipientPublicKey, data);
     }
 

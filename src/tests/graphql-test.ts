@@ -22,8 +22,9 @@ export const graphQlTest = async () => {
     assertEq(getTransationResult.publicKey, testReceiver);
 
 
-    // const getFilteredTransactionsResult = await graphqlClient.getFilteredTransactions(u.publicKey, testReceiver);
-    // console.log(getFilteredTransactionsResult);    
+    const getFilteredTransactionsResult = await graphqlClient.getFilteredTransactions(u.publicKey, testReceiver);
+    console.log(getFilteredTransactionsResult);    
 
     
 };
+ 
