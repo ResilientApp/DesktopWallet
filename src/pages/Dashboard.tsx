@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { Row, Col } from "antd";
+import { Link } from "react-router-dom";
 import resdb from "../images/resdb.png";
 import background from "../images/background.jpg";
-import wallet from "../images/wallet.jpeg"
+import wallet from "../images/wallet.jpeg";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useDisclosure } from "@mantine/hooks";
 
 import {
     Card,
     Image,
-    Group,
     Text,
     Badge,
-    Button,
     Input,
     CloseButton,
-    Container,
-    Box,
-    Burger,
-    Anchor,
+    Modal,
+    Button,
+    TextInput,
 } from "@mantine/core";
 import "@mantine/core/styles.css";
 
@@ -30,17 +29,47 @@ function BlankPage() {
         backgroundSize: "cover",
     };
     const [publicKey, setPublicKey] = useState("");
+    const [publicKeyError, setPublicKeyError] = useState(false);
     const [amount, setAmount] = useState("");
+    const [amountError, setAmountError] = useState(false);
     const [metaData, setMetadata] = useState("");
+    const [opened, { open, close }] = useDisclosure(false);
+
+    const handleSubmit = () => {
+        if (amount === "") {
+            setAmountError(true);
+        } else if (amount !== "") {
+            setAmountError(false);
+        }
+        if (publicKey === "") {
+            setPublicKeyError(true);
+        } else if (publicKey !== "") {
+            setPublicKeyError(false);
+        }
+        if (amount !== "" && publicKey !== "") {
+            open();
+        }
+    };
 
     return (
         <>
             <div style={containerStyle}>
+                <Modal
+                    opened={opened}
+                    onClose={close}
+                    withCloseButton={false}
+                    centered
+                >
+                    Congrats! Your transaction has been sent successfully
+                </Modal>
                 <nav
                     className="navbar navbar-light"
                     style={{ backgroundColor: "#FCF5F3" }}
                 >
-                    <div className="container-fluid">
+                    <div
+                        className="container-fluid"
+                        style={{ justifyContent: "space-apart" }}
+                    >
                         <img
                             src={resdb}
                             alt="resdb_logo"
@@ -48,20 +77,27 @@ function BlankPage() {
                             width="175"
                             height="60"
                         />
-                        <form className="d-flex" style={{ marginRight: "2%" }}>
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
-                            <button
-                                className="btn btn-outline-success"
-                                type="submit"
+                        <div style = {{display: 'flex', gap: '20px', marginRight: "4%"}}>
+                            <Link to = "/signin" style = {{textDecoration: 'none'}}><h5 style = {{color: 'black'}}>Sign in</h5></Link>
+                            <Link to = "/register" style = {{textDecoration: 'none'}}><h5 style = {{color: 'black'}}>Register</h5></Link>
+                            {/* <form
+                                className="d-flex"
+                                style={{ marginRight: "2%" }}
                             >
-                                Search
-                            </button>
-                        </form>
+                                <input
+                                    className="form-control me-2"
+                                    type="search"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                />
+                                <button
+                                    className="btn btn-outline-success"
+                                    type="submit"
+                                >
+                                    Search
+                                </button>
+                            </form> */}
+                        </div>
                     </div>
                 </nav>
 
@@ -219,7 +255,7 @@ function BlankPage() {
                                     flexDirection: "row",
                                     gap: "30px",
                                     flexWrap: "wrap",
-                                    justifyContent: "space-between",
+                                    justifyContent: "space-evenly",
                                     marginRight: "3%",
                                 }}
                             >
@@ -241,7 +277,7 @@ function BlankPage() {
                                             paddingLeft: "20px",
                                             paddingRight: "20px",
                                             display: "inline-block",
-                                            textAlign: "center"
+                                            textAlign: "center",
                                         }}
                                     >
                                         Send a transaction
@@ -256,7 +292,7 @@ function BlankPage() {
                                         <Input.Label required>
                                             Enter recipient's public key
                                         </Input.Label>
-                                        <Input
+                                        <TextInput
                                             placeholder="Recipient public key"
                                             value={publicKey}
                                             onChange={(event: any) =>
@@ -278,13 +314,19 @@ function BlankPage() {
                                                     }}
                                                 />
                                             }
-                                            color="green"
+                                            required
+                                            withErrorStyles={false}
+                                            error={
+                                                publicKeyError
+                                                    ? "Please fill out this field"
+                                                    : null
+                                            }
                                         />
                                         <br></br>
                                         <Input.Label required>
                                             Enter amount you wish to send
                                         </Input.Label>
-                                        <Input
+                                        <TextInput
                                             placeholder="Enter amount"
                                             value={amount}
                                             onChange={(event) =>
@@ -305,6 +347,12 @@ function BlankPage() {
                                                             : "none",
                                                     }}
                                                 />
+                                            }
+                                            withErrorStyles={false}
+                                            error={
+                                                amountError
+                                                    ? "Please fill out this field"
+                                                    : null
                                             }
                                         />{" "}
                                         <br></br>
@@ -345,6 +393,8 @@ function BlankPage() {
                                                 to: "green",
                                                 deg: 247,
                                             }}
+                                            onClick={handleSubmit}
+                                            type="submit"
                                         >
                                             Send
                                         </Button>
@@ -396,7 +446,11 @@ function BlankPage() {
                                         >
                                             Amount of coins left
                                         </Badge>
-                                        <Text fw={500} mt = "md">500 ROK left</Text>
+                                        <Text fw={500} mt="md">
+                                            500 ROK left
+                                        </Text>
+                                        <Text fw={500}>Public key: 12345</Text>
+                                        <Text fw={500}>Private key: 56789</Text>
                                     </Card>
                                 </div>
                             </div>
