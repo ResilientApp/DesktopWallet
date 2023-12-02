@@ -33,14 +33,10 @@ const router = createHashRouter([
         path: "/register",
         element: <Register />,
     },
-<<<<<<< HEAD
     {
         path: '/dapp-directory',
         element: <DAppDirectory />
     }
-=======
-    // { path: "/send-coins", element: <SendCoins /> },
->>>>>>> dashboard
 ]);
 
 const root = createRoot(document.body);

@@ -25,10 +25,7 @@ const main = async () => {
     }
 
     const wallet = new Wallet();
-<<<<<<< HEAD
     
-=======
->>>>>>> dashboard
 
     const createWindow = (): void => {
         // Create the browser window.
