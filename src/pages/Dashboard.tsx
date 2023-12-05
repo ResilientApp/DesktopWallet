@@ -28,24 +28,29 @@ function Dashboard() {
     <div style={containerStyle}>
         <Navbar />
         <div className="ninjadash-page-header-main" title="Past transactions" style={{ marginTop: "2%" }} />
-        <div style={{ marginLeft: "2%", marginRight: "2%" }}>
-            <h1 className="headerTitle"> Your past transactions </h1>
-            <PastTransactions />
+        <div style={{ marginTop: "5vh", marginLeft: "2%", marginRight: "2%", display: 'flex', flexDirection: 'column', justifyContent: 'space-around'  }}>
+            <div>
+                <h1 className="headerTitle"> Your past transactions </h1>
+                <PastTransactions />
+            </div>
             <br></br>
-            <Row gutter={25}>
-                <Col sm={24} xs={24}>
-                    <br></br>
-                    <div className="flexContainer">
-                    <div style={{ display: "flex", flexDirection: "column" }} >
-                        <SendTransaction />
-                        </div>
+            <div>
+                <Row gutter={25}>
+                    <Col sm={24} xs={24}>
+                        <br></br>
+                        <div className="flexContainer">
                         <div style={{ display: "flex", flexDirection: "column" }} >
-                            <h1 className="headerTitle"> View keys </h1>
-                            <RoksDisplay />
+                            <SendTransaction />
+                            </div>
+                            <div style={{ display: "flex", flexDirection: "column" }} >
+                                <h1 className="headerTitle"> View keys </h1>
+                                <RoksDisplay />
+                            </div>
                         </div>
-                    </div>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
+            </div>
+            
         </div>
     </div>
      </>
