@@ -29,7 +29,7 @@ export const PastTransactions = () => {
         api.transactions.getPastTransactions
     );
 
-    console.log(value);
+    console.log('value', value);
 
     let transactions: FilteredTransactionWithToFrom[] = [];
     if (value) {
@@ -62,7 +62,7 @@ export const PastTransactions = () => {
                 <h2>Transactions Loading</h2>
             ) : error ? (
                 <h2>Error Fetching Transactions</h2>
-            ) : (
+            ) : value.transactionsSent.length === 0 ? <h2>You haven't made any transactions yet. Make one below!</h2> : (
                 <>
                     {transactions.map((t) => (
                         <PastTransaction

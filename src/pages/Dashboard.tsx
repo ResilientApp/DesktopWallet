@@ -17,7 +17,7 @@ function Dashboard() {
         backgroundRepeat: "repeat",
         backgroundPosition: "center center",
         backgroundSize: "cover",
-        marginBottom: "2rem",
+        height: "100vh",
     };
     const [publicKey, setPublicKey] = useState("");
     const [amount, setAmount] = useState("");
