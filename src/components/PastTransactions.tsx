@@ -52,10 +52,9 @@ export const PastTransactions = () => {
         <div
             style={{
                 display: "flex",
-                flexDirection: "row",
                 gap: "30px",
-                flexWrap: "wrap",
-                // justifyContent: "center",
+                overflowX: "auto",
+                width: "100%"
             }}
         >
             {loading ? (
@@ -102,7 +101,7 @@ const PastTransaction: React.FC<PastTransactionProps> = ({
             padding="xl"
             radius="md"
             withBorder
-            style={{ width: "30%" }}
+            style={{ width: "30vw", flexShrink: '0' }}
         >
             <Text fw={500} style={{wordWrap: 'break-word'}}>To: {to}</Text>
             <Text fw={500} style={{wordWrap: 'break-word'}}>From: {from} </Text>
