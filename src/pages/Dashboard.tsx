@@ -40,7 +40,7 @@ function Dashboard() {
                         <SendTransaction />
                         </div>
                         <div style={{ display: "flex", flexDirection: "column" }} >
-                            <h1 className="headerTitle"> View Wallet </h1>
+                            <h1 className="headerTitle"> View keys </h1>
                             <RoksDisplay />
                         </div>
                     </div>
