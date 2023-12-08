@@ -42,8 +42,9 @@ function SendTransaction() {
             Congrats! Your transaction has been sent successfully
         </Modal>
 
+        
         <h1 className="headerTitle"> Send a transaction </h1>
-            <Card shadow="sm" padding="xl" radius="md" withBorder style={{ width: "40vw" }}>
+            <Card shadow="sm" padding="xl" radius="md" withBorder style={{ width: "40vw", height: "380px" }}>
                 <Input.Label required> Enter recipient's public key </Input.Label>
                 <TextInput
                     placeholder="Recipient public key"
@@ -104,8 +105,9 @@ function SendTransaction() {
                     rightSection={
                         <CloseButton aria-label="Clear input" onClick={() => setMetadata("")} style={{ display: metaData ? undefined : "none" }} />
                     }
+                    style={{ marginBottom: "30px" }}
                 />
-                <Button variant="gradient" color="blue" fullWidth mt="md" radius="md" gradient={{ from: "cyan", to: "green", deg: 247 }} 
+                <Button variant="gradient" color="blue" fullWidth mt="auto" radius="md" gradient={{ from: "cyan", to: "green", deg: 247 }} 
                 onClick={handleSubmit} type="submit" >Send</Button>
             </Card>
         </div>

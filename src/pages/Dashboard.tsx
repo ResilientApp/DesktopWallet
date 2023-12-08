@@ -9,6 +9,7 @@ import { Navbar } from "../components/Navbar";
 import { PastTransactions } from "../components/PastTransactions";
 import { RoksDisplay } from "../components/RoksDisplay";
 import SendTransaction from "../components/SendTransaction";
+import {Signout} from "../components/Signout";
 import "../styles/styles.css";
 
 function Dashboard() {
@@ -18,17 +19,19 @@ function Dashboard() {
         backgroundPosition: "center center",
         backgroundSize: "cover",
         height: "100vh",
+       
     };
+
     const [publicKey, setPublicKey] = useState("");
     const [amount, setAmount] = useState("");
     const [metaData, setMetadata] = useState("");
 
     return (
         <>
-    <div style={containerStyle}>
-        <Navbar />
-        <div className="ninjadash-page-header-main" title="Past transactions" style={{ marginTop: "2%" }} />
-        <div style={{ marginTop: "5vh", marginLeft: "2%", marginRight: "2%", display: 'flex', flexDirection: 'column', justifyContent: 'space-around'  }}>
+          <div style={containerStyle}>
+            <Signout />
+            <div className="ninjadash-page-header-main" title="Past transactions" style={{ marginTop: "2%" }} />
+        <div style={{ marginTop: "5vh", marginLeft: "12%", marginRight: "2%", display: 'flex', flexDirection: 'column', justifyContent: 'space-around'  }}>
             <div>
                 <h1 className="headerTitle"> Your past transactions </h1>
                 <PastTransactions />
